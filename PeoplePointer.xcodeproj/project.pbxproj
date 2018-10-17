@@ -7,8 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7457D9012172922D00E9A255 /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457D9002172922D00E9A255 /* PersonTableViewCell.swift */; };
+		7466D0672170E4CA00279649 /* EditPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0662170E4CA00279649 /* EditPersonViewController.swift */; };
+		7466D0692170ED6000279649 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0682170ED6000279649 /* QuizViewController.swift */; };
+		7466D06D2170FA1F00279649 /* PersonListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */; };
+		7466D0712170FBDD00279649 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0702170FBDD00279649 /* Gender.swift */; };
+		7466D073217112AF00279649 /* PersonLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D072217112AF00279649 /* PersonLists.swift */; };
+		7466D0752171132000279649 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0742171132000279649 /* Person.swift */; };
 		74CD3DBF214AA69C00F3A551 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */; };
-		74CD3DC1214AA69C00F3A551 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DC0214AA69C00F3A551 /* ViewController.swift */; };
+		74CD3DC1214AA69C00F3A551 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DC0214AA69C00F3A551 /* MainViewController.swift */; };
 		74CD3DC4214AA69C00F3A551 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74CD3DC2214AA69C00F3A551 /* Main.storyboard */; };
 		74CD3DC6214AA69E00F3A551 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74CD3DC5214AA69E00F3A551 /* Assets.xcassets */; };
 		74CD3DC9214AA69E00F3A551 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74CD3DC7214AA69E00F3A551 /* LaunchScreen.storyboard */; };
@@ -34,9 +41,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7457D9002172922D00E9A255 /* PersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTableViewCell.swift; sourceTree = "<group>"; };
+		7466D0662170E4CA00279649 /* EditPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonViewController.swift; sourceTree = "<group>"; };
+		7466D0682170ED6000279649 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListsTableViewController.swift; sourceTree = "<group>"; };
+		7466D0702170FBDD00279649 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		7466D072217112AF00279649 /* PersonLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonLists.swift; sourceTree = "<group>"; };
+		7466D0742171132000279649 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		74CD3DBB214AA69C00F3A551 /* PeoplePointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeoplePointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74CD3DC0214AA69C00F3A551 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		74CD3DC0214AA69C00F3A551 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		74CD3DC3214AA69C00F3A551 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74CD3DC5214AA69E00F3A551 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74CD3DC8214AA69E00F3A551 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,8 +112,15 @@
 			isa = PBXGroup;
 			children = (
 				74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */,
-				74CD3DC0214AA69C00F3A551 /* ViewController.swift */,
+				74CD3DC0214AA69C00F3A551 /* MainViewController.swift */,
+				7466D0682170ED6000279649 /* QuizViewController.swift */,
+				7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */,
+				7457D9002172922D00E9A255 /* PersonTableViewCell.swift */,
+				7466D0662170E4CA00279649 /* EditPersonViewController.swift */,
 				74CD3DC2214AA69C00F3A551 /* Main.storyboard */,
+				7466D0702170FBDD00279649 /* Gender.swift */,
+				7466D072217112AF00279649 /* PersonLists.swift */,
+				7466D0742171132000279649 /* Person.swift */,
 				74CD3DC5214AA69E00F3A551 /* Assets.xcassets */,
 				74CD3DC7214AA69E00F3A551 /* LaunchScreen.storyboard */,
 				74CD3DCA214AA69E00F3A551 /* Info.plist */,
@@ -256,7 +277,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74CD3DC1214AA69C00F3A551 /* ViewController.swift in Sources */,
+				7466D0712170FBDD00279649 /* Gender.swift in Sources */,
+				74CD3DC1214AA69C00F3A551 /* MainViewController.swift in Sources */,
+				7466D06D2170FA1F00279649 /* PersonListsTableViewController.swift in Sources */,
+				7457D9012172922D00E9A255 /* PersonTableViewCell.swift in Sources */,
+				7466D0692170ED6000279649 /* QuizViewController.swift in Sources */,
+				7466D0672170E4CA00279649 /* EditPersonViewController.swift in Sources */,
+				7466D073217112AF00279649 /* PersonLists.swift in Sources */,
+				7466D0752171132000279649 /* Person.swift in Sources */,
 				74CD3DBF214AA69C00F3A551 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
