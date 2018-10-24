@@ -29,7 +29,17 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+        
+        let isPresentingInAddMode = presentingViewController is UINavigationController
+        
+        if isPresentingInAddMode {
+            dismiss(animated: true, completion: nil)
+        } else if let owningNavigationController = navigationController {
+            owningNavigationController.popViewController(animated: true)
+        } else {
+            fatalError("EditPersonViewController is not in navigation controller")
+        }
+        
     }
     
     //MARK: UITextFieldDelegate

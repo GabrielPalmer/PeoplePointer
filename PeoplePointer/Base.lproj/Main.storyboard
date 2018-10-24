@@ -240,13 +240,75 @@
                     <view key="view" contentMode="scaleToFill" id="Lba-Zz-5OR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1wF-ZP-ZmJ">
+                                <rect key="frame" x="16" y="45" width="343" height="343"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bmc-DH-ect">
+                                        <rect key="frame" x="170" y="190" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eQg-0p-2uQ">
+                                        <rect key="frame" x="0.0" y="190" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wen-3b-I0s">
+                                        <rect key="frame" x="0.0" y="0.0" width="159" height="159"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="wen-3b-I0s" secondAttribute="height" multiplier="1:1" id="iyW-m9-K2D"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ip-oA-Drb">
+                                        <rect key="frame" x="184" y="0.0" width="159" height="159"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7ip-oA-Drb" secondAttribute="height" multiplier="1:1" id="jo9-O1-Zl4"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7ip-oA-Drb" firstAttribute="leading" secondItem="wen-3b-I0s" secondAttribute="trailing" constant="25" id="GDW-WH-cQT"/>
+                                    <constraint firstItem="wen-3b-I0s" firstAttribute="top" secondItem="1wF-ZP-ZmJ" secondAttribute="top" id="Mgm-PA-OSy"/>
+                                    <constraint firstAttribute="width" secondItem="1wF-ZP-ZmJ" secondAttribute="height" multiplier="1:1" id="gxC-Ze-d9a"/>
+                                    <constraint firstAttribute="trailing" secondItem="7ip-oA-Drb" secondAttribute="trailing" id="kEx-lU-ete"/>
+                                    <constraint firstItem="7ip-oA-Drb" firstAttribute="height" secondItem="wen-3b-I0s" secondAttribute="height" id="rQz-tX-6Fu"/>
+                                    <constraint firstItem="wen-3b-I0s" firstAttribute="leading" secondItem="1wF-ZP-ZmJ" secondAttribute="leading" id="s3O-Qr-FJa"/>
+                                    <constraint firstItem="7ip-oA-Drb" firstAttribute="top" secondItem="1wF-ZP-ZmJ" secondAttribute="top" id="sa9-JU-lFO"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-ru-a2f">
+                                <rect key="frame" x="136" y="548" width="103" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVJ-BS-UFd">
+                                <rect key="frame" x="171.5" y="594" width="32" height="30"/>
+                                <state key="normal" title="Next"/>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Km0-gl-CTn">
+                                <rect key="frame" x="66" y="649" width="243" height="2"/>
+                            </progressView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Km0-gl-CTn" firstAttribute="leading" secondItem="Lba-Zz-5OR" secondAttribute="leadingMargin" constant="50" id="3Of-53-4LB"/>
+                            <constraint firstItem="UyD-k8-Yvd" firstAttribute="bottom" secondItem="Km0-gl-CTn" secondAttribute="bottom" constant="16" id="5MM-o2-hry"/>
+                            <constraint firstItem="Msa-ru-a2f" firstAttribute="centerX" secondItem="Lba-Zz-5OR" secondAttribute="centerX" id="7pZ-J9-LVz"/>
+                            <constraint firstItem="UVJ-BS-UFd" firstAttribute="centerX" secondItem="Lba-Zz-5OR" secondAttribute="centerX" id="Bjk-WY-Hi2"/>
+                            <constraint firstItem="Km0-gl-CTn" firstAttribute="top" secondItem="UVJ-BS-UFd" secondAttribute="bottom" constant="25" id="g5p-rG-5vo"/>
+                            <constraint firstItem="UVJ-BS-UFd" firstAttribute="top" secondItem="Msa-ru-a2f" secondAttribute="bottom" constant="25" id="gnu-Cg-QzL"/>
+                            <constraint firstItem="1wF-ZP-ZmJ" firstAttribute="leading" secondItem="UyD-k8-Yvd" secondAttribute="leading" constant="16" id="h0w-2A-3hP"/>
+                            <constraint firstItem="1wF-ZP-ZmJ" firstAttribute="top" secondItem="UyD-k8-Yvd" secondAttribute="top" constant="25" id="jTb-c7-9vK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Km0-gl-CTn" secondAttribute="trailing" constant="50" id="kKY-Qb-TcC"/>
+                            <constraint firstItem="UyD-k8-Yvd" firstAttribute="trailing" secondItem="1wF-ZP-ZmJ" secondAttribute="trailing" constant="16" id="zT4-qq-8qG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="UyD-k8-Yvd"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBy-Fn-LA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974" y="-286"/>
+            <point key="canvasLocation" x="973.60000000000002" y="-286.50674662668666"/>
         </scene>
         <!--Person List-->
         <scene sceneID="PlP-g8-2Qf">

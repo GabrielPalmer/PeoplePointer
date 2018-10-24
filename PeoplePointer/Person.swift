@@ -32,7 +32,7 @@ class Person: NSObject, NSCoding{
     required convenience init?(coder aDecoder: NSCoder) {
         
         guard let theirPicture = aDecoder.decodeObject(forKey: PropertyKey.imageKey) as? UIImage else {return nil}
-        guard let theirName = aDecoder.decodeObject(forKey: PropertyKey.imageKey) as? String else {return nil}
+        guard let theirName = aDecoder.decodeObject(forKey: PropertyKey.nameKey) as? String else {return nil}
         
         self.init(image: theirPicture, name: theirName)
     }

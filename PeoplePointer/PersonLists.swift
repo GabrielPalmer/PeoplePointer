@@ -12,6 +12,7 @@ var femaleList: [Person] = []
 var maleList: [Person] = []
 
 func savePersonList(gender: Gender) {
+    
     if gender == .male {
         let worked = NSKeyedArchiver.archiveRootObject(maleList, toFile: Person.MaleArchiveURL.path)
         print(worked)
@@ -21,9 +22,6 @@ func savePersonList(gender: Gender) {
 }
 
 func loadPersonLists() {
-    
-    let unwrappedThing = NSKeyedUnarchiver.unarchiveObject(withFile: Person.MaleArchiveURL.path)
-    let list = unwrappedThing as? [Person]
     
     if let unwrappedList = NSKeyedUnarchiver.unarchiveObject(withFile: Person.MaleArchiveURL.path) as? [Person] {
         maleList = unwrappedList

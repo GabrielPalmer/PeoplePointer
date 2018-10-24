@@ -73,8 +73,9 @@ class MainViewController: UIViewController {
         guard let sender = sender as? UIButton else {return}
         
         switch sender {
+            
         case newGameButton:
-            fatalError("Not Implemented")
+            break
             
         case editMalesButton:
             guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? PersonListsTableViewController else {fatalError("Unexpected Segue Destination")}
