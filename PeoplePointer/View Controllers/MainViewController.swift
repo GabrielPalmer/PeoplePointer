@@ -73,9 +73,7 @@ class MainViewController: UIViewController {
         guard let sender = sender as? UIButton else {return}
         
         switch sender {
-            
-        case newGameButton:
-            break
+            //new game button not listed
             
         case editMalesButton:
             guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? PersonListsTableViewController else {fatalError("Unexpected Segue Destination")}
@@ -103,7 +101,6 @@ class MainViewController: UIViewController {
     @IBAction func editPeopleButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "peopleListSegue", sender: sender)
     }
-    
     
 }
 

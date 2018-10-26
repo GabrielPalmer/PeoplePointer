@@ -22,7 +22,7 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         nameTextField.delegate = self
         
         imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.green.cgColor
+        imageView.layer.borderColor = UIColor.gray.cgColor
         imageView.layer.cornerRadius = 0
         
         // Do any additional setup after loading the view.
@@ -91,8 +91,6 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         saveButton.isEnabled = validValuesToSave()
     }
     
-    
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -110,7 +108,9 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     //Mark: Private Functions
     
     func validValuesToSave() -> Bool {
+        
         guard imageView.image != UIImage(named: "testDefaultPhoto") else {return false}
+        
         guard nameTextField.text?.trimmingCharacters(in: .whitespaces) != "" && nameTextField.text != nil else {return false}
         
         return true

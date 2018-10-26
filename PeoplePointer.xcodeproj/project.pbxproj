@@ -112,15 +112,9 @@
 			isa = PBXGroup;
 			children = (
 				74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */,
-				74CD3DC0214AA69C00F3A551 /* MainViewController.swift */,
-				7466D0682170ED6000279649 /* QuizViewController.swift */,
-				7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */,
-				7457D9002172922D00E9A255 /* PersonTableViewCell.swift */,
-				7466D0662170E4CA00279649 /* EditPersonViewController.swift */,
 				74CD3DC2214AA69C00F3A551 /* Main.storyboard */,
-				7466D0702170FBDD00279649 /* Gender.swift */,
-				7466D072217112AF00279649 /* PersonLists.swift */,
-				7466D0742171132000279649 /* Person.swift */,
+				74CFAD8521821E9E000B8FDC /* View Controllers */,
+				74CFAD422181FDC6000B8FDC /* Person Data */,
 				74CD3DC5214AA69E00F3A551 /* Assets.xcassets */,
 				74CD3DC7214AA69E00F3A551 /* LaunchScreen.storyboard */,
 				74CD3DCA214AA69E00F3A551 /* Info.plist */,
@@ -144,6 +138,28 @@
 				74CD3DE0214AA69E00F3A551 /* Info.plist */,
 			);
 			path = PeoplePointerUITests;
+			sourceTree = "<group>";
+		};
+		74CFAD422181FDC6000B8FDC /* Person Data */ = {
+			isa = PBXGroup;
+			children = (
+				7466D0702170FBDD00279649 /* Gender.swift */,
+				7466D072217112AF00279649 /* PersonLists.swift */,
+				7466D0742171132000279649 /* Person.swift */,
+			);
+			path = "Person Data";
+			sourceTree = "<group>";
+		};
+		74CFAD8521821E9E000B8FDC /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				74CD3DC0214AA69C00F3A551 /* MainViewController.swift */,
+				7466D0682170ED6000279649 /* QuizViewController.swift */,
+				7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */,
+				7457D9002172922D00E9A255 /* PersonTableViewCell.swift */,
+				7466D0662170E4CA00279649 /* EditPersonViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
