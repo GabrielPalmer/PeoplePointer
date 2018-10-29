@@ -57,6 +57,9 @@
                                             <segment title="5"/>
                                         </segments>
                                         <color key="tintColor" red="0.061115896946321427" green="0.042815341756910111" blue="0.12329987046632129" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <action selector="roundsSegmentedControlChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="5Ro-yo-Ffx"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <constraints>
@@ -210,6 +213,7 @@
                         <outlet property="newGameButton" destination="Sw5-Z2-TUw" id="S94-eX-2Rd"/>
                         <outlet property="randomCheckBox" destination="7kD-ts-KKZ" id="ecM-q8-n5z"/>
                         <outlet property="randomTapGesture" destination="Vbk-Us-A3I" id="amh-vW-giJ"/>
+                        <outlet property="roundsSegmentedControl" destination="NNY-vw-BML" id="OC9-mw-fnF"/>
                         <segue destination="FE1-OZ-u5b" kind="show" identifier="peopleListSegue" id="bEV-HN-WSq"/>
                         <segue destination="NKa-uE-4yz" kind="show" identifier="quizSegue" id="X9o-Hz-8Hq"/>
                     </connections>
@@ -298,8 +302,8 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Km0-gl-CTn">
                                 <rect key="frame" x="66" y="649" width="243" height="2"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yie-ne-VP2">
-                                <rect key="frame" x="90" y="553" width="180" height="42"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yie-ne-VP2">
+                                <rect key="frame" x="97.5" y="465.5" width="180" height="42"/>
                                 <color key="backgroundColor" red="0.175668939" green="0.87690252589999995" blue="0.37476067190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="LpD-rC-k0w"/>
@@ -312,8 +316,8 @@
                                     <action selector="newGameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LkI-kx-89a"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Person Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-ru-a2f">
-                                <rect key="frame" x="25" y="474" width="325" height="27.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-ru-a2f">
+                                <rect key="frame" x="16" y="413" width="343" height="27.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -323,16 +327,27 @@
                         <constraints>
                             <constraint firstItem="Km0-gl-CTn" firstAttribute="leading" secondItem="Lba-Zz-5OR" secondAttribute="leadingMargin" constant="50" id="3Of-53-4LB"/>
                             <constraint firstItem="UyD-k8-Yvd" firstAttribute="bottom" secondItem="Km0-gl-CTn" secondAttribute="bottom" constant="16" id="5MM-o2-hry"/>
-                            <constraint firstItem="Msa-ru-a2f" firstAttribute="centerX" secondItem="Lba-Zz-5OR" secondAttribute="centerX" id="7pZ-J9-LVz"/>
-                            <constraint firstItem="UyD-k8-Yvd" firstAttribute="trailing" secondItem="Msa-ru-a2f" secondAttribute="trailing" constant="25" id="8cH-6M-b88"/>
+                            <constraint firstItem="Yie-ne-VP2" firstAttribute="centerX" secondItem="Lba-Zz-5OR" secondAttribute="centerX" id="9ds-Re-9DO"/>
                             <constraint firstItem="UyD-k8-Yvd" firstAttribute="trailing" secondItem="1wF-ZP-ZmJ" secondAttribute="trailing" constant="16" id="CCm-zI-HnX"/>
+                            <constraint firstItem="Msa-ru-a2f" firstAttribute="top" secondItem="1wF-ZP-ZmJ" secondAttribute="bottom" constant="25" id="D80-bQ-sq1"/>
                             <constraint firstItem="1wF-ZP-ZmJ" firstAttribute="leading" secondItem="UyD-k8-Yvd" secondAttribute="leading" constant="16" id="Ela-qR-hYS"/>
+                            <constraint firstItem="Yie-ne-VP2" firstAttribute="top" secondItem="Msa-ru-a2f" secondAttribute="bottom" constant="25" id="K4f-vY-yMY"/>
+                            <constraint firstItem="Msa-ru-a2f" firstAttribute="leading" secondItem="UyD-k8-Yvd" secondAttribute="leading" constant="16" id="Q1d-Kh-s2V"/>
+                            <constraint firstItem="UyD-k8-Yvd" firstAttribute="trailing" secondItem="Msa-ru-a2f" secondAttribute="trailing" constant="16" id="WuI-q5-q0R"/>
                             <constraint firstItem="1wF-ZP-ZmJ" firstAttribute="top" secondItem="UyD-k8-Yvd" secondAttribute="top" constant="25" id="jTb-c7-9vK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Km0-gl-CTn" secondAttribute="trailing" constant="50" id="kKY-Qb-TcC"/>
-                            <constraint firstItem="Msa-ru-a2f" firstAttribute="leading" secondItem="UyD-k8-Yvd" secondAttribute="leading" constant="25" id="raB-d2-J6O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UyD-k8-Yvd"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView1" destination="wen-3b-I0s" id="UEX-Tm-Gf6"/>
+                        <outlet property="imageView2" destination="7ip-oA-Drb" id="m6v-FQ-qp3"/>
+                        <outlet property="imageView3" destination="eQg-0p-2uQ" id="zCc-jV-pN7"/>
+                        <outlet property="imageView4" destination="bmc-DH-ect" id="oQh-iK-2yB"/>
+                        <outlet property="nameLabel" destination="Msa-ru-a2f" id="azu-Jx-nKp"/>
+                        <outlet property="nextButton" destination="Yie-ne-VP2" id="Xa1-He-Gc0"/>
+                        <outlet property="pictureView" destination="1wF-ZP-ZmJ" id="VEG-A5-cFX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBy-Fn-LA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -392,7 +407,7 @@
                     <navigationItem key="navigationItem" title="Person List" id="8Fo-U3-kVw">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="Icr-9p-6sP">
                             <connections>
-                                <action selector="backButtonPressed:" destination="cv6-Xt-lbc" id="lgV-xZ-kgi"/>
+                                <segue destination="OFG-WX-hgF" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="ASr-PM-q8y"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ONV-st-lwz">
@@ -403,6 +418,7 @@
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vvl-rw-UOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OFG-WX-hgF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1912.8" y="438.53073463268368"/>
         </scene>

@@ -14,6 +14,7 @@
 		7466D0712170FBDD00279649 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0702170FBDD00279649 /* Gender.swift */; };
 		7466D073217112AF00279649 /* PersonLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D072217112AF00279649 /* PersonLists.swift */; };
 		7466D0752171132000279649 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0742171132000279649 /* Person.swift */; };
+		74BBA06A218759FC00DE1589 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BBA069218759FC00DE1589 /* Game.swift */; };
 		74CD3DBF214AA69C00F3A551 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */; };
 		74CD3DC1214AA69C00F3A551 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DC0214AA69C00F3A551 /* MainViewController.swift */; };
 		74CD3DC4214AA69C00F3A551 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74CD3DC2214AA69C00F3A551 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		7466D0702170FBDD00279649 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		7466D072217112AF00279649 /* PersonLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonLists.swift; sourceTree = "<group>"; };
 		7466D0742171132000279649 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		74BBA069218759FC00DE1589 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		74CD3DBB214AA69C00F3A551 /* PeoplePointer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeoplePointer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74CD3DC0214AA69C00F3A551 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +116,7 @@
 				74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */,
 				74CD3DC2214AA69C00F3A551 /* Main.storyboard */,
 				74CFAD8521821E9E000B8FDC /* View Controllers */,
-				74CFAD422181FDC6000B8FDC /* Person Data */,
+				74CFAD422181FDC6000B8FDC /* Models */,
 				74CD3DC5214AA69E00F3A551 /* Assets.xcassets */,
 				74CD3DC7214AA69E00F3A551 /* LaunchScreen.storyboard */,
 				74CD3DCA214AA69E00F3A551 /* Info.plist */,
@@ -140,14 +142,15 @@
 			path = PeoplePointerUITests;
 			sourceTree = "<group>";
 		};
-		74CFAD422181FDC6000B8FDC /* Person Data */ = {
+		74CFAD422181FDC6000B8FDC /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				7466D0702170FBDD00279649 /* Gender.swift */,
 				7466D072217112AF00279649 /* PersonLists.swift */,
 				7466D0742171132000279649 /* Person.swift */,
+				74BBA069218759FC00DE1589 /* Game.swift */,
 			);
-			path = "Person Data";
+			path = Models;
 			sourceTree = "<group>";
 		};
 		74CFAD8521821E9E000B8FDC /* View Controllers */ = {
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7466D0712170FBDD00279649 /* Gender.swift in Sources */,
+				74BBA06A218759FC00DE1589 /* Game.swift in Sources */,
 				74CD3DC1214AA69C00F3A551 /* MainViewController.swift in Sources */,
 				7466D06D2170FA1F00279649 /* PersonListsTableViewController.swift in Sources */,
 				7457D9012172922D00E9A255 /* PersonTableViewCell.swift in Sources */,
