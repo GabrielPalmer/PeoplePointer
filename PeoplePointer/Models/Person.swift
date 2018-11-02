@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Person: NSObject, NSCoding{
+class Person: NSObject, NSCoding {
     var image: UIImage
     var name: String
 

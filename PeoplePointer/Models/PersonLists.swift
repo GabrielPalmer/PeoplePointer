@@ -14,8 +14,8 @@ var maleList: [Person] = []
 func savePersonList(gender: Gender) {
     
     if gender == .male {
-        let worked = NSKeyedArchiver.archiveRootObject(maleList, toFile: Person.MaleArchiveURL.path)
-        print(worked)
+        NSKeyedArchiver.archiveRootObject(maleList, toFile: Person.MaleArchiveURL.path)
+
     } else {
         NSKeyedArchiver.archiveRootObject(femaleList, toFile: Person.FemaleArchiveURL.path)
     }

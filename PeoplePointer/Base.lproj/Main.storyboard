@@ -24,15 +24,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sw5-Z2-TUw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sw5-Z2-TUw">
                                 <rect key="frame" x="97.5" y="86" width="180" height="42"/>
-                                <color key="backgroundColor" red="0.17566893904143566" green="0.87690252590673579" blue="0.3747606719182916" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.175668939" green="0.87690252589999995" blue="0.37476067190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="50e-ww-x6x"/>
+                                    <constraint firstAttribute="height" constant="42" id="Vim-Vl-JOg"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="New Game">
+                                            <attributes>
+                                                <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <font key="NSFont" metaFont="system" size="25"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <state key="disabled">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Not Enough Names">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="16" name=".AppleSystemUIFont"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                                 <connections>
                                     <action selector="newGameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0bd-OC-vdx"/>
@@ -248,33 +266,45 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1wF-ZP-ZmJ">
                                 <rect key="frame" x="16" y="45" width="343" height="343"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bmc-DH-ect" userLabel="Image View 4">
+                                    <imageView tag="4" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bmc-DH-ect" userLabel="Image View 4">
                                         <rect key="frame" x="184" y="184" width="159" height="159"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="bmc-DH-ect" secondAttribute="height" multiplier="1:1" id="9sz-HH-IuL"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="ujq-wr-RhS" appends="YES" id="BgU-Rt-xqL"/>
+                                        </connections>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eQg-0p-2uQ" userLabel="Image View 3">
+                                    <imageView tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eQg-0p-2uQ" userLabel="Image View 3">
                                         <rect key="frame" x="0.0" y="184" width="159" height="159"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="eQg-0p-2uQ" secondAttribute="height" multiplier="1:1" id="AQk-te-uTH"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="m46-UB-Pa7" appends="YES" id="Ki7-r1-9x1"/>
+                                        </connections>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wen-3b-I0s" userLabel="Image View 1">
+                                    <imageView tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wen-3b-I0s" userLabel="Image View 1">
                                         <rect key="frame" x="0.0" y="0.0" width="159" height="159"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wen-3b-I0s" secondAttribute="height" multiplier="1:1" id="iyW-m9-K2D"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="rcA-R7-5tg" appends="YES" id="39I-5q-kgT"/>
+                                        </connections>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ip-oA-Drb" userLabel="Image View 2">
+                                    <imageView tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ip-oA-Drb" userLabel="Image View 2">
                                         <rect key="frame" x="184" y="0.0" width="159" height="159"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="7ip-oA-Drb" secondAttribute="height" multiplier="1:1" id="jo9-O1-Zl4"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="C5B-vB-lCv" appends="YES" id="vva-iS-8gH"/>
+                                        </connections>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -307,6 +337,7 @@
                                 <color key="backgroundColor" red="0.175668939" green="0.87690252589999995" blue="0.37476067190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="LpD-rC-k0w"/>
+                                    <constraint firstAttribute="height" constant="42" id="YR6-cV-HQ3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Next">
@@ -314,6 +345,7 @@
                                 </state>
                                 <connections>
                                     <action selector="newGameButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LkI-kx-89a"/>
+                                    <action selector="nextButtonTapped:" destination="NKa-uE-4yz" eventType="touchUpInside" id="Sbi-Nm-WaG"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-ru-a2f">
@@ -340,16 +372,40 @@
                         <viewLayoutGuide key="safeArea" id="UyD-k8-Yvd"/>
                     </view>
                     <connections>
+                        <outlet property="imageTapGesture1" destination="rcA-R7-5tg" id="yEh-ab-IDs"/>
+                        <outlet property="imageTapGesture2" destination="C5B-vB-lCv" id="iWF-Q7-GnP"/>
+                        <outlet property="imageTapGesture3" destination="m46-UB-Pa7" id="WXq-Bx-YGA"/>
+                        <outlet property="imageTapGesture4" destination="ujq-wr-RhS" id="ktw-gz-oaU"/>
                         <outlet property="imageView1" destination="wen-3b-I0s" id="UEX-Tm-Gf6"/>
                         <outlet property="imageView2" destination="7ip-oA-Drb" id="m6v-FQ-qp3"/>
                         <outlet property="imageView3" destination="eQg-0p-2uQ" id="zCc-jV-pN7"/>
                         <outlet property="imageView4" destination="bmc-DH-ect" id="oQh-iK-2yB"/>
                         <outlet property="nameLabel" destination="Msa-ru-a2f" id="azu-Jx-nKp"/>
                         <outlet property="nextButton" destination="Yie-ne-VP2" id="Xa1-He-Gc0"/>
-                        <outlet property="pictureView" destination="1wF-ZP-ZmJ" id="VEG-A5-cFX"/>
+                        <outlet property="roundProgressBar" destination="Km0-gl-CTn" id="9fP-wB-p5V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gBy-Fn-LA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="rcA-R7-5tg" userLabel="Tap Gesture Recognizer 1">
+                    <connections>
+                        <action selector="imageTapped:" destination="NKa-uE-4yz" id="x6R-CL-zNa"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="C5B-vB-lCv" userLabel="Tap Gesture Recognizer 2">
+                    <connections>
+                        <action selector="imageTapped:" destination="NKa-uE-4yz" id="1Dz-Mk-yJ0"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="m46-UB-Pa7" userLabel="Tap Gesture Recognizer 3">
+                    <connections>
+                        <action selector="imageTapped:" destination="NKa-uE-4yz" id="UyP-g8-2LY"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ujq-wr-RhS" userLabel="Tap Gesture Recognizer 4">
+                    <connections>
+                        <action selector="imageTapped:" destination="NKa-uE-4yz" id="dpi-TD-Ey8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="973.60000000000002" y="-286.50674662668666"/>
         </scene>
@@ -407,7 +463,7 @@
                     <navigationItem key="navigationItem" title="Person List" id="8Fo-U3-kVw">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="Icr-9p-6sP">
                             <connections>
-                                <segue destination="OFG-WX-hgF" kind="unwind" unwindAction="unwindToMainViewControllerWithSegue:" id="ASr-PM-q8y"/>
+                                <segue destination="OFG-WX-hgF" kind="unwind" identifier="unwindToMain" unwindAction="unwindToMainViewControllerWithSegue:" id="ASr-PM-q8y"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ONV-st-lwz">

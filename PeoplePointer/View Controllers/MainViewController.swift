@@ -21,14 +21,15 @@ class MainViewController: UIViewController {
     @IBOutlet weak var newGameButton: UIButton!
     @IBOutlet weak var editMalesButton: UIButton!
     @IBOutlet weak var editFemalesButton: UIButton!
-    
     @IBOutlet weak var roundsSegmentedControl: UISegmentedControl!
     
     var gender: Gender = .random
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
+        newGameButton.setBackgroundColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .disabled)
+        
         loadPersonLists()
         updateNewGameButtonAvailabiltiy()
     }
@@ -82,6 +83,31 @@ class MainViewController: UIViewController {
             
             destination.gender = gender
             
+            switch roundsSegmentedControl.selectedSegmentIndex {
+                
+            case 0:
+                switch gender {
+                case .random:
+                    destination.maxRounds = maleList.count + femaleList.count
+                case .male:
+                    destination.maxRounds = maleList.count
+                    return
+                case .female:
+                    destination.maxRounds = femaleList.count
+                    return
+                }
+                
+            case 1:
+                destination.maxRounds = 15
+            case 2:
+                destination.maxRounds = 10
+            case 3:
+                destination.maxRounds = 5
+            default:
+                fatalError("Unknown SegmentedControl Index")
+            }
+            
+            
         case editMalesButton:
             guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? PersonListsTableViewController else {fatalError("Unexpected Segue Destination")}
             
@@ -108,11 +134,11 @@ class MainViewController: UIViewController {
         performSegue(withIdentifier: "quizSegue", sender: sender)
     }
     
-    
     @IBAction func editPeopleButtonTapped(_ sender: UIButton) {
         performSegue(withIdentifier: "peopleListSegue", sender: sender)
     }
     
+    //needs to make the button look unusable
     fileprivate func updateNewGameButtonAvailabiltiy() {
         var rounds: Int
         
@@ -121,13 +147,13 @@ class MainViewController: UIViewController {
         case 0:
             switch gender {
             case .random:
-                newGameButton.isEnabled = maleList.count + femaleList.count > 0
+                newGameButton.isEnabled = maleList.count > 3 && femaleList.count > 3
                 return
             case .male:
-                newGameButton.isEnabled = maleList.count > 0
+                newGameButton.isEnabled = maleList.count > 3
                 return
             case .female:
-                newGameButton.isEnabled = femaleList.count > 0
+                newGameButton.isEnabled = femaleList.count > 3
                 return
             }
             
@@ -149,6 +175,31 @@ class MainViewController: UIViewController {
         case .female:
             newGameButton.isEnabled = femaleList.count >= rounds
         }
+        
     }
     
+}
+
+
+/////////////////////////   Extensions   /////////////////////////////
+
+extension UIButton {
+    
+    private func image(withColor color: UIColor) -> UIImage? {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.setFillColor(color.cgColor)
+        context?.fill(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    func setBackgroundColor(_ color: UIColor, for state: UIControlState) {
+        self.setBackgroundImage(image(withColor: color), for: state)
+    }
 }

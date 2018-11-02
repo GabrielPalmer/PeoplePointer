@@ -74,7 +74,8 @@ class PersonListsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == "editPerson" {
+        switch segue.identifier {
+        case "editPerson":
             
             guard let destination = segue.destination as? EditPersonViewController else {return}
             
@@ -90,11 +91,16 @@ class PersonListsTableViewController: UITableViewController {
             destination.navigationItem.title = "Edit Person"
             destination.saveButton.isEnabled = true
             
-        } else {
+        case "addPerson":
+            
             guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? EditPersonViewController else {fatalError()}
             destination.navigationItem.title = "Add Person"
             destination.saveButton.isEnabled = false
             
+        case "unwindToMain":
+            break
+        default:
+            fatalError("Unexpected segue destination")
         }
     }
     
@@ -135,10 +141,6 @@ class PersonListsTableViewController: UITableViewController {
             }
             
         }
-    }
-
-    @IBAction func backButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
     
 }
