@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		741066DE218CB27D00D584C1 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741066DD218CB27D00D584C1 /* ResultsViewController.swift */; };
 		7457D9012172922D00E9A255 /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457D9002172922D00E9A255 /* PersonTableViewCell.swift */; };
 		7466D0672170E4CA00279649 /* EditPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0662170E4CA00279649 /* EditPersonViewController.swift */; };
 		7466D0692170ED6000279649 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7466D0682170ED6000279649 /* QuizViewController.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		741066DD218CB27D00D584C1 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		7457D9002172922D00E9A255 /* PersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTableViewCell.swift; sourceTree = "<group>"; };
 		7466D0662170E4CA00279649 /* EditPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPersonViewController.swift; sourceTree = "<group>"; };
 		7466D0682170ED6000279649 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				74CD3DC0214AA69C00F3A551 /* MainViewController.swift */,
 				7466D0682170ED6000279649 /* QuizViewController.swift */,
+				741066DD218CB27D00D584C1 /* ResultsViewController.swift */,
 				7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */,
 				7457D9002172922D00E9A255 /* PersonTableViewCell.swift */,
 				7466D0662170E4CA00279649 /* EditPersonViewController.swift */,
@@ -296,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				741066DE218CB27D00D584C1 /* ResultsViewController.swift in Sources */,
 				7466D0712170FBDD00279649 /* Gender.swift in Sources */,
 				74BBA06A218759FC00DE1589 /* Game.swift in Sources */,
 				74CD3DC1214AA69C00F3A551 /* MainViewController.swift in Sources */,

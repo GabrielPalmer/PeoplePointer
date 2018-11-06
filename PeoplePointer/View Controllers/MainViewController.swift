@@ -27,7 +27,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         newGameButton.setBackgroundColor(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), for: .disabled)
         
         loadPersonLists()
@@ -138,7 +137,6 @@ class MainViewController: UIViewController {
         performSegue(withIdentifier: "peopleListSegue", sender: sender)
     }
     
-    //needs to make the button look unusable
     fileprivate func updateNewGameButtonAvailabiltiy() {
         var rounds: Int
         

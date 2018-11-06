@@ -107,7 +107,7 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     //Mark: Private Functions
     
-    func validValuesToSave() -> Bool {
+    fileprivate func validValuesToSave() -> Bool {
         
         guard imageView.image != UIImage(named: "testDefaultPhoto") else {return false}
         
