@@ -124,7 +124,7 @@ class MainViewController: UIViewController {
         }
     }
     
-    @IBAction  func unwindToMainViewController(segue: UIStoryboardSegue) {
+    @IBAction  func unwindToMainViewController(sender: UIStoryboardSegue) {
         updateNewGameButtonAvailabiltiy()
     }
     

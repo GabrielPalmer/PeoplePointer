@@ -91,13 +91,20 @@ class PersonListsTableViewController: UITableViewController {
             destination.navigationItem.title = "Edit Person"
             destination.saveButton.isEnabled = true
             
+            destination.scrollView.isScrollEnabled = true
+            destination.imageSelected = true
+            
         case "addPerson":
             
             guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? EditPersonViewController else {fatalError()}
+            
+            destination.loadViewIfNeeded()
+            
             destination.navigationItem.title = "Add Person"
             destination.saveButton.isEnabled = false
+            destination.scrollView.isScrollEnabled = false
             
-        case "unwindToMain":
+        case "unwindToMainViewController":
             break
         default:
             fatalError("Unexpected segue destination")

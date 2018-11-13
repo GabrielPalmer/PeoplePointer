@@ -10,6 +10,10 @@ import UIKit
 
 class QuizViewController: UIViewController {
 
+    //========================================
+    // MARK: - Properties
+    //========================================
+    
     enum QuestionType {
         case singleImage, singleName
     }
@@ -38,6 +42,7 @@ class QuizViewController: UIViewController {
     @IBOutlet var imageTapGesture4: UITapGestureRecognizer!
     
     
+    
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roundProgressBar: UIProgressView!
     
@@ -46,18 +51,13 @@ class QuizViewController: UIViewController {
     var questionType: QuestionType = .singleImage   //placeholder
     var correctAnswer: Int?
     var round: Int = 1
-    var maxRounds: Int = 4//placeholder
+    var maxRounds: Int = 4   //placeholder
     var amountCorrect: Float = 0
     var gender: Gender = .random   //placeholder
     var game: Game?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        roundFinished = false
-        round = 1
-        amountCorrect = 0
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
         imageView1.layer.borderWidth = 10
         imageView2.layer.borderWidth = 10
         imageView3.layer.borderWidth = 10
@@ -75,10 +75,21 @@ class QuizViewController: UIViewController {
         imageView3.layer.borderColor = UIColor.clear.cgColor
         imageView4.layer.borderColor = UIColor.clear.cgColor
         
-        nextButton.isHidden = true
-        game = Game(forList: gender)
-        newRound()
+        nameButton1.addBorder(side: .top, thickness: 2, color: .black)
+        nameButton1.addBorder(side: .bottom, thickness: 1, color: .black)
+        nameButton2.addBorder(side: .top, thickness: 1, color: .black)
+        nameButton2.addBorder(side: .bottom, thickness: 1, color: .black)
+        nameButton3.addBorder(side: .top, thickness: 1, color: .black)
+        nameButton3.addBorder(side: .bottom, thickness: 1, color: .black)
+        nameButton4.addBorder(side: .top, thickness: 1, color: .black)
+        nameButton4.addBorder(side: .bottom, thickness: 2, color: .black)
+        
+        newGame()
     }
+    
+    //========================================
+    // MARK: - Actions
+    //========================================
     
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
         
@@ -128,13 +139,32 @@ class QuizViewController: UIViewController {
         newRound()
     }
     
+    //========================================
+    // MARK: - Functions
+    //========================================
     
-    //add recursive functionality to personsForRound?
-    func newRound() {
+    fileprivate func newGame() {
+        
+        nextButton.setTitle("Next", for: .normal)
+        roundFinished = false
+        round = 1
+        amountCorrect = 0
+        
+        nextButton.isHidden = true
+        
+        //Game object is reused if redoing quiz
+        if game == nil {
+            game = Game(forList: gender)
+        }
+        
+        newRound()
+    }
+    
+    fileprivate func newRound() {
         roundFinished = false
         nextButton.isHidden = true
         
-        roundProgressBar.setProgress(Float(round) / Float(maxRounds), animated: true)
+        roundProgressBar.setProgress(Float(round - 1) / Float(maxRounds), animated: true)
     
         if questionType == .singleName {
             imageView1.layer.borderColor = UIColor.clear.cgColor
@@ -154,40 +184,66 @@ class QuizViewController: UIViewController {
             var personsForRound: [Person] = []
             var randomGender: Gender = .random   //when gender = .random, must be set to male/female or app will crash
             
-            //gets answer person for round which is always first index of personsForRound
+            //gets answer person for round, which is always the first index of personsForRound
             switch gender {
                 
             case .male:
-                correctPerson = game.remainingPossibleMales.remove(at: Int(arc4random_uniform(UInt32(game.remainingPossibleMales.count))))
+                correctPerson = game.removePersonFromList(gender: .male)
                 
             case .female:
-                correctPerson = game.remainingPossibleFemales.remove(at: Int(arc4random_uniform(UInt32(game.remainingPossibleFemales.count))))
+                correctPerson = game.removePersonFromList(gender: .female)
                 
             case .random:
                 
                 //check if all names of a list have been used, if so set gender from random to only use remaining list
                 if game.remainingPossibleMales.count == 0 {
                     gender = .female
-                    correctPerson = game.remainingPossibleFemales.remove(at: Int(arc4random_uniform(UInt32(game.remainingPossibleFemales.count))))
+                    correctPerson = game.removePersonFromList(gender: .female)
                     break
                 } else if game.remainingPossibleFemales.count == 0 {
                     gender = .male
-                    correctPerson = game.remainingPossibleMales.remove(at: Int(arc4random_uniform(UInt32(game.remainingPossibleMales.count))))
+                    correctPerson = game.removePersonFromList(gender: .male)
                     break
                 }
                 
                 //gets random person from remaining gender list and ensure the other fill persons will be that gender
                 if arc4random_uniform(2) == 0 {
                     randomGender = .male
-                    correctPerson = game.remainingPossibleMales.remove(at: Int(arc4random_uniform(UInt32(game.remainingPossibleMales.count))))
+                    correctPerson = game.removePersonFromList(gender: .male)
                 } else {
                     randomGender = .female
-                    correctPerson = game.remainingPossibleFemales.remove(at: Int(arc4random_uniform(UInt32(game.remainingPossibleFemales.count))))
+                    correctPerson = game.removePersonFromList(gender: .female)
                 }
             }
-            personsForRound.append(correctPerson!)
             
-            //fills 3 more persons in personsForRound ensuring no duplicates
+            if let correctPerson = correctPerson {
+                
+                switch gender {
+                case .male:
+                    game.malesUsed.append(correctPerson)
+                case .female:
+                    game.femalesUsed.append(correctPerson)
+                case .random:
+                    switch randomGender {
+                    case .male:
+                        game.malesUsed.append(correctPerson)
+                    case .female:
+                        game.femalesUsed.append(correctPerson)
+                    case .random:
+                        fatalError("randomGender was still .random after randomization")
+                    }
+                }
+                
+                print("CorrectPerson: \(correctPerson.name)")
+                personsForRound.append(correctPerson)
+                
+            } else {
+                fatalError("correctPerson was still nil after randomization")
+            }
+            
+            
+            
+            //fills in 3 more persons in personsForRound ensuring no duplicates
             for _ in 0...2 {
                 var person: Person?
                 
@@ -195,28 +251,30 @@ class QuizViewController: UIViewController {
                     
                 case .male:
                     repeat {
-                        person = game.allPossibleMales[Int(arc4random_uniform(UInt32(game.allPossibleMales.count)))]
+                        person = game.getPersonFromList(gender: .male)
                     } while personsForRound.contains(person!)
                     
                 case .female:
                     repeat {
-                        person = game.allPossibleFemales[Int(arc4random_uniform(UInt32(game.allPossibleFemales.count)))]
+                        person = game.getPersonFromList(gender: .female)
                     } while personsForRound.contains(person!)
                     
                 case .random:
                     if randomGender == .male {
                         repeat {
-                            person = game.allPossibleMales[Int(arc4random_uniform(UInt32(game.allPossibleMales.count)))]
+                            person = game.getPersonFromList(gender: .male)
                         } while personsForRound.contains(person!)
                     } else if randomGender == .female {
                         repeat {
-                            person = game.allPossibleFemales[Int(arc4random_uniform(UInt32(game.allPossibleFemales.count)))]
+                            person = game.getPersonFromList(gender: .female)
                         } while personsForRound.contains(person!)
                     }
                 }
                 
                 personsForRound.append(person!)
             }
+            
+            
             
             //selects random question type and imageView/label for correct answer
             questionType = Int(arc4random_uniform(2)) == 0 ? .singleImage : .singleName
@@ -289,19 +347,99 @@ class QuizViewController: UIViewController {
         
     }
     
-    //MARK: Navigation
+    //========================================
+    // MARK: - Navigation
+    //========================================
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let destination = segue.destination as? ResultsViewController else {fatalError("quiz did not segue to results")}
         
-        destination.game = game
         destination.loadViewIfNeeded()
-        destination.percentageLabel.text = String(Int(100 * (amountCorrect / Float(maxRounds)))) + "%"
+        destination.percentageLabel.text = String(Int(100 * (amountCorrect / Float(maxRounds)))) + " %"
     }
     
     @IBAction func unwindToQuizViewController(sender: UIStoryboardSegue) {
-        //use the fact that unwind doesn't reload the view controller to your advantage
+        
+        if let game = game {
+            gender = game.originalGender
+        }
+        
+        if sender.identifier == "unwindFromReplayButton" {
+            //newGame() will create the correct game settings again, as long as gender is set from originalGender beforehand
+            game = nil
+            
+        } else if sender.identifier == "unwindFromRetrySetButton" {
+            
+            if let game = game {
+                
+                switch game.originalGender {
+                case .male:
+                    game.remainingPossibleMales = game.malesUsed
+                case .female:
+                    game.remainingPossibleFemales = game.femalesUsed
+                case .random:
+                    game.remainingPossibleMales = game.malesUsed
+                    game.remainingPossibleFemales = game.femalesUsed
+                }
+                
+                game.malesUsed.removeAll()
+                game.femalesUsed.removeAll()
+                
+            }
+            
+        } else {
+            fatalError("unwinded to QuizViewController from unkown source")
+        }
+        
+        newGame()
+    }
+}
+
+
+public extension UIView {
+    
+    public enum ViewSide {
+        case top
+        case right
+        case bottom
+        case left
+    }
+    
+    public func addBorder(side: ViewSide, thickness: CGFloat, color: UIColor, leftOffset: CGFloat = 0, rightOffset: CGFloat = 0, topOffset: CGFloat = 0, bottomOffset: CGFloat = 0) {
+        
+        switch side {
+            
+        case .top:
+            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset, y: 0 + topOffset, width: self.frame.size.width - leftOffset - rightOffset, height: thickness), color: color)
+            self.layer.addSublayer(border)
+            
+        case .right:
+            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: self.frame.size.width-thickness-rightOffset, y: 0 + topOffset, width: thickness, height: self.frame.size.height - topOffset - bottomOffset), color: color)
+            self.layer.addSublayer(border)
+            
+        case .bottom:
+            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset, y: self.frame.size.height-thickness-bottomOffset, width: self.frame.size.width - leftOffset - rightOffset, height: thickness), color: color)
+            self.layer.addSublayer(border)
+            
+        case .left:
+            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset, y: 0 + topOffset, width: thickness, height: self.frame.size.height - topOffset - bottomOffset), color: color)
+            self.layer.addSublayer(border)
+        }
+    }
+    
+    // Private: Our methods call these to add their borders.
+    
+    fileprivate func _getOneSidedBorder(frame: CGRect, color: UIColor) -> CALayer {
+        let border:CALayer = CALayer()
+        border.frame = frame
+        border.backgroundColor = color.cgColor
+        return border
+    }
+    
+    fileprivate func _getViewBackedOneSidedBorder(frame: CGRect, color: UIColor) -> UIView {
+        let border:UIView = UIView.init(frame: frame)
+        border.backgroundColor = color
+        return border
     }
     
 }
-
