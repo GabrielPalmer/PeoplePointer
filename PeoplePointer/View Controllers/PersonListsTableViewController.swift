@@ -16,11 +16,9 @@ class PersonListsTableViewController: UITableViewController {
         super.viewDidLoad()
     }
 
+    //========================================
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+    //========================================
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gender == .male ? maleList.count : femaleList.count
@@ -34,17 +32,9 @@ class PersonListsTableViewController: UITableViewController {
 
         return cell
     }
-    
 
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-
-    
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             
             if gender == .male {
@@ -65,22 +55,20 @@ class PersonListsTableViewController: UITableViewController {
         }    
     }
     
-
-
-    
+    //========================================
     // MARK: - Navigation
+    //========================================
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
         switch segue.identifier {
         case "editPerson":
             
-            guard let destination = segue.destination as? EditPersonViewController else {return}
+            guard let destination = segue.destination as? EditPersonViewController else { fatalError("unkown segue destination") }
             
-            guard let sender = sender as? PersonTableViewCell else {return}
-            guard let indexpath = tableView.indexPath(for: sender) else {return}
+            guard let sender = sender as? PersonTableViewCell else { fatalError("sender was not PersonTableViewCell") }
+            guard let indexpath = tableView.indexPath(for: sender) else { fatalError("cell was not in table") }
             
             let selectedPerson = (gender == .male) ? maleList[indexpath.row] : femaleList[indexpath.row]
             
@@ -93,6 +81,9 @@ class PersonListsTableViewController: UITableViewController {
             
             destination.scrollView.isScrollEnabled = true
             destination.imageSelected = true
+            
+            destination.scrollView.layoutIfNeeded()
+            destination.updateZoomFor(size: CGSize(width: 200, height: 200))
             
         case "addPerson":
             
@@ -110,8 +101,6 @@ class PersonListsTableViewController: UITableViewController {
             fatalError("Unexpected segue destination")
         }
     }
-    
-    //MARK: Actions
     
     @IBAction func unwindToPersonListTableViewController(sender: UIStoryboardSegue) {
         

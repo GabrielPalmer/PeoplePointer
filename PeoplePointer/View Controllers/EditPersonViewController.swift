@@ -29,8 +29,33 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         scrollView.layer.borderWidth = 2
         scrollView.layer.borderColor = UIColor.gray.cgColor
         scrollView.layer.cornerRadius = 0
+    }
+    
+    //========================================
+    // MARK: - Actions
+    //========================================
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
         
-        // Do any additional setup after loading the view.
+        guard let image = imageView.image else { return }
+        guard let text = nameTextField.text else { return }
+        
+        
+        let width: CGFloat = 200.0 / scrollView.zoomScale
+        let height: CGFloat = 200.0 / scrollView.zoomScale
+        let x: CGFloat = scrollView.contentOffset.x / scrollView.zoomScale
+        let y: CGFloat = scrollView.contentOffset.y / scrollView.zoomScale
+        let cropArea = CGRect(x: x, y: y, width: width, height: height)
+        
+        
+        if let croppedCGImage = image.cgImage?.cropping(to: cropArea) {
+            let croppedImage = UIImage(cgImage: croppedCGImage)
+            person = Person(image: croppedImage, name: text)
+        } else {
+            person = Person(image: UIImage(named: "randomPlaceholder")!, name: "<Crop Error Occured>")
+        }
+        
+        performSegue(withIdentifier: "unwindToPersonLists", sender: nil)
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -48,10 +73,11 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     //========================================
-    // MARK: - Scroll View Delegate
+    // MARK: - UIScrollViewDelegate
     //========================================
-    
+
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        nameTextField.resignFirstResponder()
         imageView.layer.opacity = 0.5
         scrollView.clipsToBounds = false
     }
@@ -62,6 +88,7 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        nameTextField.resignFirstResponder()
         imageView.layer.opacity = 0.5
         scrollView.clipsToBounds = false
     }
@@ -78,11 +105,10 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     func updateZoomFor(size: CGSize) {
         let widthScale = size.width / imageView.bounds.width
         let heightScale = size.height / imageView.bounds.height
-        let scale = min(widthScale, heightScale)
+        let scale = max(widthScale, heightScale)
         scrollView.minimumZoomScale = scale
         scrollView.zoomScale = scale
     }
- 
     
     //========================================
     // MARK: - UITextFieldDelegate
@@ -94,7 +120,6 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
         return true
     }
     
@@ -149,7 +174,6 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         //Dismiss the picker if the user canceled.
         dismiss(animated: true, completion: nil)
@@ -168,10 +192,6 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         scrollView.layoutIfNeeded()
         updateZoomFor(size: scrollView.bounds.size)
         
-        if selectedImage.size.width != selectedImage.size.height {
-            //notify user to resize image
-        }
-        
         //Dismiss the picker.
         dismiss(animated: true, completion: nil)
         
@@ -179,22 +199,8 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     //========================================
-    // MARK: - Navigation
+    // MARK: - Custom functions
     //========================================
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {return}
-        
-        guard let image = imageView.image else {return}
-        let text = nameTextField.text ?? "<invalid name saved>"
-        
-        person = Person(image: image, name: text)
-    }
-    
-    //Mark: Private Functions
     
     fileprivate func validValuesToSave() -> Bool {
         
@@ -206,4 +212,3 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
 
 }
-

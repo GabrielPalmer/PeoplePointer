@@ -32,11 +32,10 @@ class MainViewController: UIViewController {
         loadPersonLists()
         updateNewGameButtonAvailabiltiy()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
+    //========================================
+    // MARK: - Actions
+    //========================================
     
     @IBAction func checkBoxesTapped(_ sender: UITapGestureRecognizer) {
         if sender == randomTapGesture {
@@ -137,6 +136,10 @@ class MainViewController: UIViewController {
         performSegue(withIdentifier: "peopleListSegue", sender: sender)
     }
     
+    //========================================
+    //MARK: - Custom Functions
+    //========================================
+    
     fileprivate func updateNewGameButtonAvailabiltiy() {
         var rounds: Int
         
@@ -173,13 +176,24 @@ class MainViewController: UIViewController {
         case .female:
             newGameButton.isEnabled = femaleList.count >= rounds
         }
+    }
+    
+    static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let menuDefaultsURL = documentsDirectory.appendingPathComponent("menuDefaults").appendingPathExtension("plist")
+    
+    fileprivate func loadMenuDefaults() {
+        
+    }
+    
+    fileprivate func saveMenuDefaults() {
         
     }
     
 }
 
-
-/////////////////////////   Extensions   /////////////////////////////
+//========================================
+// MARK: - Extensions
+//========================================
 
 extension UIButton {
     

@@ -18,6 +18,7 @@ class QuizViewController: UIViewController {
         case singleImage, singleName
     }
     
+    //singe Image question view outlets
     @IBOutlet weak var singleImageView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -27,7 +28,7 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var nameButton4: UIButton!
     
     
-    
+    //single name question view outlets
     @IBOutlet weak var singleNameView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -42,7 +43,7 @@ class QuizViewController: UIViewController {
     @IBOutlet var imageTapGesture4: UITapGestureRecognizer!
     
     
-    
+    //general outlets
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var roundProgressBar: UIProgressView!
     
@@ -58,6 +59,7 @@ class QuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         imageView1.layer.borderWidth = 10
         imageView2.layer.borderWidth = 10
         imageView3.layer.borderWidth = 10
@@ -75,6 +77,7 @@ class QuizViewController: UIViewController {
         imageView3.layer.borderColor = UIColor.clear.cgColor
         imageView4.layer.borderColor = UIColor.clear.cgColor
         
+        /*
         nameButton1.addBorder(side: .top, thickness: 2, color: .black)
         nameButton1.addBorder(side: .bottom, thickness: 1, color: .black)
         nameButton2.addBorder(side: .top, thickness: 1, color: .black)
@@ -83,6 +86,9 @@ class QuizViewController: UIViewController {
         nameButton3.addBorder(side: .bottom, thickness: 1, color: .black)
         nameButton4.addBorder(side: .top, thickness: 1, color: .black)
         nameButton4.addBorder(side: .bottom, thickness: 2, color: .black)
+        */
+        
+        roundProgressBar.barHeight = 6
         
         newGame()
     }
@@ -105,7 +111,8 @@ class QuizViewController: UIViewController {
         }
         
         roundFinished = true
-        nextButton.isHidden = false
+        animateNextButton()
+        
     }
     
     @IBAction func personButtonTapped(_ sender: UIButton) {
@@ -122,7 +129,7 @@ class QuizViewController: UIViewController {
         }
         
         roundFinished = true
-        nextButton.isHidden = false
+        animateNextButton()
     }
     
     @IBAction func nextButtonTapped(_ sender: UIButton) {
@@ -140,8 +147,17 @@ class QuizViewController: UIViewController {
     }
     
     //========================================
-    // MARK: - Functions
+    // MARK: - Custom Functions
     //========================================
+    
+    fileprivate func animateNextButton() {
+        nextButton.alpha = 0
+        nextButton.isHidden = false
+        
+        UIView.animate(withDuration: 0.5) {
+            self.nextButton.alpha = 1
+        }
+    }
     
     fileprivate func newGame() {
         
@@ -149,7 +165,6 @@ class QuizViewController: UIViewController {
         roundFinished = false
         round = 1
         amountCorrect = 0
-        
         nextButton.isHidden = true
         
         //Game object is reused if redoing quiz
@@ -182,7 +197,7 @@ class QuizViewController: UIViewController {
         if let game = game {
             var correctPerson: Person?
             var personsForRound: [Person] = []
-            var randomGender: Gender = .random   //when gender = .random, must be set to male/female or app will crash
+            var randomGender: Gender = .random   //when gender = .random, this must be set to male/female or app will crash
             
             //gets answer person for round, which is always the first index of personsForRound
             switch gender {
@@ -234,13 +249,11 @@ class QuizViewController: UIViewController {
                     }
                 }
                 
-                print("CorrectPerson: \(correctPerson.name)")
                 personsForRound.append(correctPerson)
                 
             } else {
                 fatalError("correctPerson was still nil after randomization")
             }
-            
             
             
             //fills in 3 more persons in personsForRound ensuring no duplicates
@@ -273,7 +286,6 @@ class QuizViewController: UIViewController {
                 
                 personsForRound.append(person!)
             }
-            
             
             
             //selects random question type and imageView/label for correct answer
@@ -395,6 +407,9 @@ class QuizViewController: UIViewController {
     }
 }
 
+//========================================
+// MARK: - Extensions
+//========================================
 
 public extension UIView {
     
@@ -442,4 +457,20 @@ public extension UIView {
         return border
     }
     
+}
+
+extension UIProgressView {
+    
+    @IBInspectable var barHeight : CGFloat {
+        get {
+            return transform.d * 2.0
+        }
+        set {
+            // 2.0 Refers to the default height of 2
+            let heightScale = newValue / 2.0
+            let c = center
+            transform = CGAffineTransform(scaleX: 1.0, y: heightScale)
+            center = c
+        }
+    }
 }

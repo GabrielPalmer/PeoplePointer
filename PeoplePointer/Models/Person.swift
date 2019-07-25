@@ -41,5 +41,6 @@ class Person: NSObject, NSCoding {
         aCoder.encode(image, forKey: PropertyKey.imageKey)
         aCoder.encode(name, forKey: PropertyKey.nameKey)
     }
+    
 }
 
