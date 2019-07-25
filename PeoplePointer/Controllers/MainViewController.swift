@@ -39,7 +39,6 @@ class MainViewController: UIViewController {
     
     @IBAction func checkBoxesTapped(_ sender: UITapGestureRecognizer) {
         if sender == randomTapGesture {
-            
             gender = .random
             randomCheckBox.image = UIImage(named: "Checked")
             boysCheckBox.image = UIImage(named: "Unchecked")
@@ -47,7 +46,6 @@ class MainViewController: UIViewController {
             updateNewGameButtonAvailabiltiy()
             
         } else if sender == malesTapGesture {
-            
             gender = .male
             randomCheckBox.image = UIImage(named: "Unchecked")
             boysCheckBox.image = UIImage(named: "Checked")
@@ -55,14 +53,12 @@ class MainViewController: UIViewController {
             updateNewGameButtonAvailabiltiy()
             
         } else if sender == femalesTapGesture {
-            
             gender = .female
             randomCheckBox.image = UIImage(named: "Unchecked")
             boysCheckBox.image = UIImage(named: "Unchecked")
             girlsCheckBox.image = UIImage(named: "Checked")
             updateNewGameButtonAvailabiltiy()
         }
-        
     }
     
     @IBAction func roundsSegmentedControlChanged(_ sender: UISegmentedControl) {
@@ -71,18 +67,15 @@ class MainViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
-        guard let sender = sender as? UIButton else {return}
-        
+        guard let sender = sender as? UIButton else { return }
+
         switch sender {
-            
         case newGameButton:
             guard let destination = segue.destination as? QuizViewController else {fatalError("Unexpected Segue Destination")}
             
             destination.gender = gender
             
             switch roundsSegmentedControl.selectedSegmentIndex {
-                
             case 0:
                 switch gender {
                 case .random:
@@ -144,7 +137,6 @@ class MainViewController: UIViewController {
         var rounds: Int
         
         switch roundsSegmentedControl.selectedSegmentIndex {
-            
         case 0:
             switch gender {
             case .random:
@@ -189,29 +181,4 @@ class MainViewController: UIViewController {
         
     }
     
-}
-
-//========================================
-// MARK: - Extensions
-//========================================
-
-extension UIButton {
-    
-    private func image(withColor color: UIColor) -> UIImage? {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        
-        context?.setFillColor(color.cgColor)
-        context?.fill(rect)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-    
-    func setBackgroundColor(_ color: UIColor, for state: UIControlState) {
-        self.setBackgroundImage(image(withColor: color), for: state)
-    }
 }

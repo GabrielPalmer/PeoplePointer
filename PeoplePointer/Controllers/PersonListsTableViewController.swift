@@ -33,6 +33,10 @@ class PersonListsTableViewController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
@@ -49,12 +53,9 @@ class PersonListsTableViewController: UITableViewController {
             
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    
+
     //========================================
     // MARK: - Navigation
     //========================================
@@ -104,10 +105,10 @@ class PersonListsTableViewController: UITableViewController {
     
     @IBAction func unwindToPersonListTableViewController(sender: UIStoryboardSegue) {
         
-        if let sourceViewController = sender.source as? EditPersonViewController, let person = sourceViewController.person {
+        if let sourceViewController = sender.source as? EditPersonViewController,
+            let person = sourceViewController.person {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                
                 //update person
                 if gender == .male {
                     maleList[selectedIndexPath.row] = person
@@ -116,9 +117,7 @@ class PersonListsTableViewController: UITableViewController {
                 }
                 
                 tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
-                
             } else {
-                
                 //add person
                 let newIndexPath = IndexPath(row: 0, section: 0)
                 
@@ -127,7 +126,6 @@ class PersonListsTableViewController: UITableViewController {
                 } else {
                     femaleList.insert(person, at: 0)
                 }
-                
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
             }
             
@@ -135,9 +133,7 @@ class PersonListsTableViewController: UITableViewController {
             if let gender = gender {
                 savePersonList(gender: gender)
             }
-            
         }
     }
-    
 }
 

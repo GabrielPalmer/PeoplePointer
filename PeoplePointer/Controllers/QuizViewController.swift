@@ -27,7 +27,6 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var nameButton3: UIButton!
     @IBOutlet weak var nameButton4: UIButton!
     
-    
     //single name question view outlets
     @IBOutlet weak var singleNameView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -41,7 +40,6 @@ class QuizViewController: UIViewController {
     @IBOutlet var imageTapGesture2: UITapGestureRecognizer!
     @IBOutlet var imageTapGesture3: UITapGestureRecognizer!
     @IBOutlet var imageTapGesture4: UITapGestureRecognizer!
-    
     
     //general outlets
     @IBOutlet weak var nextButton: UIButton!
@@ -404,73 +402,5 @@ class QuizViewController: UIViewController {
         }
         
         newGame()
-    }
-}
-
-//========================================
-// MARK: - Extensions
-//========================================
-
-public extension UIView {
-    
-    public enum ViewSide {
-        case top
-        case right
-        case bottom
-        case left
-    }
-    
-    public func addBorder(side: ViewSide, thickness: CGFloat, color: UIColor, leftOffset: CGFloat = 0, rightOffset: CGFloat = 0, topOffset: CGFloat = 0, bottomOffset: CGFloat = 0) {
-        
-        switch side {
-            
-        case .top:
-            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset, y: 0 + topOffset, width: self.frame.size.width - leftOffset - rightOffset, height: thickness), color: color)
-            self.layer.addSublayer(border)
-            
-        case .right:
-            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: self.frame.size.width-thickness-rightOffset, y: 0 + topOffset, width: thickness, height: self.frame.size.height - topOffset - bottomOffset), color: color)
-            self.layer.addSublayer(border)
-            
-        case .bottom:
-            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset, y: self.frame.size.height-thickness-bottomOffset, width: self.frame.size.width - leftOffset - rightOffset, height: thickness), color: color)
-            self.layer.addSublayer(border)
-            
-        case .left:
-            let border: CALayer = _getOneSidedBorder(frame: CGRect(x: 0 + leftOffset, y: 0 + topOffset, width: thickness, height: self.frame.size.height - topOffset - bottomOffset), color: color)
-            self.layer.addSublayer(border)
-        }
-    }
-    
-    // Private: Our methods call these to add their borders.
-    
-    fileprivate func _getOneSidedBorder(frame: CGRect, color: UIColor) -> CALayer {
-        let border:CALayer = CALayer()
-        border.frame = frame
-        border.backgroundColor = color.cgColor
-        return border
-    }
-    
-    fileprivate func _getViewBackedOneSidedBorder(frame: CGRect, color: UIColor) -> UIView {
-        let border:UIView = UIView.init(frame: frame)
-        border.backgroundColor = color
-        return border
-    }
-    
-}
-
-extension UIProgressView {
-    
-    @IBInspectable var barHeight : CGFloat {
-        get {
-            return transform.d * 2.0
-        }
-        set {
-            // 2.0 Refers to the default height of 2
-            let heightScale = newValue / 2.0
-            let c = center
-            transform = CGAffineTransform(scaleX: 1.0, y: heightScale)
-            center = c
-        }
     }
 }

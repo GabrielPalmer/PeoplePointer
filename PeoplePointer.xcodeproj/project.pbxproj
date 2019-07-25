@@ -23,6 +23,7 @@
 		74CD3DC9214AA69E00F3A551 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74CD3DC7214AA69E00F3A551 /* LaunchScreen.storyboard */; };
 		74CD3DD4214AA69E00F3A551 /* PeoplePointerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DD3214AA69E00F3A551 /* PeoplePointerTests.swift */; };
 		74CD3DDF214AA69E00F3A551 /* PeoplePointerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CD3DDE214AA69E00F3A551 /* PeoplePointerUITests.swift */; };
+		EE424B4022EA0B2800D083EE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE424B3F22EA0B2800D083EE /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		74CD3DDA214AA69E00F3A551 /* PeoplePointerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeoplePointerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74CD3DDE214AA69E00F3A551 /* PeoplePointerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePointerUITests.swift; sourceTree = "<group>"; };
 		74CD3DE0214AA69E00F3A551 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE424B3F22EA0B2800D083EE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +119,7 @@
 			children = (
 				74CD3DBE214AA69C00F3A551 /* AppDelegate.swift */,
 				74CD3DC2214AA69C00F3A551 /* Main.storyboard */,
-				74CFAD8521821E9E000B8FDC /* View Controllers */,
+				74CFAD8521821E9E000B8FDC /* Controllers */,
 				74CFAD422181FDC6000B8FDC /* Models */,
 				74CD3DC5214AA69E00F3A551 /* Assets.xcassets */,
 				74CD3DC7214AA69E00F3A551 /* LaunchScreen.storyboard */,
@@ -155,7 +157,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		74CFAD8521821E9E000B8FDC /* View Controllers */ = {
+		74CFAD8521821E9E000B8FDC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				74CD3DC0214AA69C00F3A551 /* MainViewController.swift */,
@@ -164,8 +166,9 @@
 				7466D06C2170FA1F00279649 /* PersonListsTableViewController.swift */,
 				7457D9002172922D00E9A255 /* PersonTableViewCell.swift */,
 				7466D0662170E4CA00279649 /* EditPersonViewController.swift */,
+				EE424B3F22EA0B2800D083EE /* Extensions.swift */,
 			);
-			path = "View Controllers";
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +309,7 @@
 				7466D06D2170FA1F00279649 /* PersonListsTableViewController.swift in Sources */,
 				7457D9012172922D00E9A255 /* PersonTableViewCell.swift in Sources */,
 				7466D0692170ED6000279649 /* QuizViewController.swift in Sources */,
+				EE424B4022EA0B2800D083EE /* Extensions.swift in Sources */,
 				7466D0672170E4CA00279649 /* EditPersonViewController.swift in Sources */,
 				7466D073217112AF00279649 /* PersonLists.swift in Sources */,
 				7466D0752171132000279649 /* Person.swift in Sources */,
