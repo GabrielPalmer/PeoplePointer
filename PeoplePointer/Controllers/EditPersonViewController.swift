@@ -30,6 +30,12 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         scrollView.layer.borderColor = UIColor.gray.cgColor
         scrollView.layer.cornerRadius = 0
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        imageView.image = person?.image
+        nameTextField.text = person?.name
+    }
     
     //========================================
     // MARK: - Actions
@@ -39,20 +45,21 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         
         guard let image = imageView.image else { return }
         guard let text = nameTextField.text else { return }
-        
-        
+
         let width: CGFloat = 200.0 / scrollView.zoomScale
         let height: CGFloat = 200.0 / scrollView.zoomScale
         let x: CGFloat = scrollView.contentOffset.x / scrollView.zoomScale
         let y: CGFloat = scrollView.contentOffset.y / scrollView.zoomScale
         let cropArea = CGRect(x: x, y: y, width: width, height: height)
         
-        
         if let croppedCGImage = image.cgImage?.cropping(to: cropArea) {
             let croppedImage = UIImage(cgImage: croppedCGImage)
-            person = Person(image: croppedImage, name: text)
-        } else {
-            person = Person(image: UIImage(named: "randomPlaceholder")!, name: "<Crop Error Occured>")
+            if let person = person {
+                person.image = croppedImage
+                person.name = text
+            } else {
+                person = Person(image: croppedImage, name: text)
+            }
         }
         
         performSegue(withIdentifier: "unwindToPersonLists", sender: nil)
@@ -60,16 +67,13 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         
-        let isPresentingInAddMode = presentingViewController is UINavigationController
-        
-        if isPresentingInAddMode {
+        if presentingViewController is UINavigationController {
             dismiss(animated: true, completion: nil)
         } else if let owningNavigationController = navigationController {
             owningNavigationController.popViewController(animated: true)
         } else {
             fatalError("EditPersonViewController is not in navigation controller")
         }
-        
     }
     
     //========================================
@@ -124,7 +128,7 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        saveButton.isEnabled = validValuesToSave()
+        validValuesToSave()
     }
     
     //========================================
@@ -178,7 +182,7 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         //Dismiss the picker if the user canceled.
         dismiss(animated: true, completion: nil)
         
-        saveButton.isEnabled = validValuesToSave()
+        validValuesToSave()
     }
     
     func imagePickerController(_ _picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -195,20 +199,23 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         //Dismiss the picker.
         dismiss(animated: true, completion: nil)
         
-        saveButton.isEnabled = validValuesToSave()
+        validValuesToSave()
     }
     
     //========================================
     // MARK: - Custom functions
     //========================================
     
-    fileprivate func validValuesToSave() -> Bool {
-        
-        guard imageView.image != UIImage(named: "testDefaultPhoto") else {return false}
-        
-        guard nameTextField.text?.trimmingCharacters(in: .whitespaces) != "" && nameTextField.text != nil else {return false}
-        
-        return true
+    fileprivate func validValuesToSave() {
+        guard
+            nameTextField.text?.trimmingCharacters(in: .whitespaces) != "" && nameTextField.text != nil
+            && imageView.image != UIImage(named: "testDefaultPhoto")
+            else {
+            saveButton.isEnabled = false
+            return
+        }
+
+        saveButton.isEnabled = true
     }
 
 }

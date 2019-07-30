@@ -8,37 +8,40 @@
 
 import UIKit
 
-class PersonListsTableViewController: UITableViewController {
+class PersonListsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var gender: Gender?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
+    var gender: Gender = .male
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "Males"
     }
 
     //========================================
     // MARK: - Table view data source
     //========================================
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gender == .male ? maleList.count : femaleList.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "personCell", for: indexPath) as! PersonTableViewCell
+        let person = gender == .male ? maleList[indexPath.row] : femaleList[indexPath.row]
 
-        cell.picture.image = (gender == .male ? maleList[indexPath.row].image : femaleList[indexPath.row].image)
-        cell.nameLabel.text = (gender == .male ? maleList[indexPath.row].name : femaleList[indexPath.row].name)
-
+        cell.picture.image = person.image
+        cell.nameLabel.text = person.name
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "editPerson", sender: nil)
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             if gender == .male {
@@ -46,16 +49,28 @@ class PersonListsTableViewController: UITableViewController {
             } else {
                 femaleList.remove(at: indexPath.row)
             }
-            
-            if let gender = gender {
-                savePersonList(gender: gender)
-            }
-            
+
+            savePersonList(gender: gender)
+
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
+    //===========================================
+    // MARK: - Actions
+    //===========================================
+
+    @IBAction func segmentedControllerChanged(_ sender: UISegmentedControl) {
+        gender = sender.selectedSegmentIndex == 0 ? Gender.male : Gender.female
+        navigationItem.title = gender == .male ? "Males" : "Females"
+        tableView.reloadData()
+    }
+    
+    @IBAction func addButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "addPerson", sender: nil)
+    }
+    
     //========================================
     // MARK: - Navigation
     //========================================
@@ -66,23 +81,19 @@ class PersonListsTableViewController: UITableViewController {
         switch segue.identifier {
         case "editPerson":
             
-            guard let destination = segue.destination as? EditPersonViewController else { fatalError("unkown segue destination") }
-            
-            guard let sender = sender as? PersonTableViewCell else { fatalError("sender was not PersonTableViewCell") }
-            guard let indexpath = tableView.indexPath(for: sender) else { fatalError("cell was not in table") }
-            
-            let selectedPerson = (gender == .male) ? maleList[indexpath.row] : femaleList[indexpath.row]
-            
+            guard
+                let destination = segue.destination as? EditPersonViewController,
+                let sender = sender as? PersonTableViewCell,
+                let indexpath = tableView.indexPath(for: sender)
+                else { fatalError("invalid segue to editPersonViewController") }
+
             destination.loadViewIfNeeded()
-            
-            destination.imageView.image = selectedPerson.image
-            destination.nameTextField.text = selectedPerson.name
             destination.navigationItem.title = "Edit Person"
+
+            destination.person = gender == .male ? maleList[indexpath.row] : femaleList[indexpath.row]
             destination.saveButton.isEnabled = true
-            
             destination.scrollView.isScrollEnabled = true
             destination.imageSelected = true
-            
             destination.scrollView.layoutIfNeeded()
             destination.updateZoomFor(size: CGSize(width: 200, height: 200))
             
@@ -91,15 +102,14 @@ class PersonListsTableViewController: UITableViewController {
             guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? EditPersonViewController else {fatalError()}
             
             destination.loadViewIfNeeded()
-            
-            destination.navigationItem.title = "Add Person"
+            destination.navigationItem.title = "Add \(gender == .male ? "Male" : "Female")"
             destination.saveButton.isEnabled = false
             destination.scrollView.isScrollEnabled = false
-            
+
         case "unwindToMainViewController":
             break
         default:
-            fatalError("Unexpected segue destination")
+            fatalError("unknown segue identifier")
         }
     }
     
@@ -110,29 +120,18 @@ class PersonListsTableViewController: UITableViewController {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 //update person
-                if gender == .male {
-                    maleList[selectedIndexPath.row] = person
-                } else {
-                    femaleList[selectedIndexPath.row] = person
-                }
-                
                 tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
             } else {
                 //add person
-                let newIndexPath = IndexPath(row: 0, section: 0)
-                
                 if gender == .male {
                     maleList.insert(person, at: 0)
                 } else {
                     femaleList.insert(person, at: 0)
                 }
-                tableView.insertRows(at: [newIndexPath], with: .automatic)
+                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
             }
-            
-            //save the updated list
-            if let gender = gender {
-                savePersonList(gender: gender)
-            }
+
+            savePersonList(gender: gender)
         }
     }
 }

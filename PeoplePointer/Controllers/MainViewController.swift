@@ -19,8 +19,7 @@ class MainViewController: UIViewController {
     @IBOutlet var femalesTapGesture: UITapGestureRecognizer!
     
     @IBOutlet weak var newGameButton: UIButton!
-    @IBOutlet weak var editMalesButton: UIButton!
-    @IBOutlet weak var editFemalesButton: UIButton!
+    @IBOutlet weak var editPeopleButton: UIButton!
     @IBOutlet weak var roundsSegmentedControl: UISegmentedControl!
     
     var gender: Gender = .random
@@ -97,22 +96,15 @@ class MainViewController: UIViewController {
             default:
                 fatalError("Unknown SegmentedControl Index")
             }
-            
-            
-        case editMalesButton:
-            guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? PersonListsTableViewController else {fatalError("Unexpected Segue Destination")}
+
+        case editPeopleButton:
+            guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? PersonListsTableViewController else { fatalError("Unexpected Segue Destination") }
             
             destination.gender = .male
             destination.navigationItem.title = "Male People"
             
-        case editFemalesButton:
-            guard let destination = (segue.destination as? UINavigationController)?.viewControllers.first as? PersonListsTableViewController else {fatalError("Unexpected Segue Destination")}
-            
-            destination.gender = .female
-            destination.navigationItem.title = "Female People"
-            
         default:
-            fatalError("Unexpected Segue Indentifier")
+            fatalError("Unexpected segue sender")
         }
     }
     
@@ -168,17 +160,6 @@ class MainViewController: UIViewController {
         case .female:
             newGameButton.isEnabled = femaleList.count >= rounds
         }
-    }
-    
-    static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let menuDefaultsURL = documentsDirectory.appendingPathComponent("menuDefaults").appendingPathExtension("plist")
-    
-    fileprivate func loadMenuDefaults() {
-        
-    }
-    
-    fileprivate func saveMenuDefaults() {
-        
     }
     
 }

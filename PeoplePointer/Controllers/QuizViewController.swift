@@ -85,9 +85,8 @@ class QuizViewController: UIViewController {
         nameButton4.addBorder(side: .top, thickness: 1, color: .black)
         nameButton4.addBorder(side: .bottom, thickness: 2, color: .black)
         */
-        
-        roundProgressBar.barHeight = 6
-        
+
+        //roundProgressBar.barHeight = 6 //the IB class for this dissapeared
         newGame()
     }
     
@@ -96,7 +95,6 @@ class QuizViewController: UIViewController {
     //========================================
     
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
-        
         if !roundFinished {
             imageView1.layer.borderColor = correctAnswer == imageView1.tag ? UIColor.green.cgColor : UIColor.red.cgColor
             imageView2.layer.borderColor = correctAnswer == imageView2.tag ? UIColor.green.cgColor : UIColor.red.cgColor
@@ -110,11 +108,9 @@ class QuizViewController: UIViewController {
         
         roundFinished = true
         animateNextButton()
-        
     }
     
     @IBAction func personButtonTapped(_ sender: UIButton) {
-        
         if !roundFinished {
             nameButton1.tintColor = correctAnswer == nameButton1.tag ? UIColor.green : UIColor.red
             nameButton2.tintColor = correctAnswer == nameButton2.tag ? UIColor.green : UIColor.red
@@ -199,13 +195,10 @@ class QuizViewController: UIViewController {
             
             //gets answer person for round, which is always the first index of personsForRound
             switch gender {
-                
             case .male:
                 correctPerson = game.removePersonFromList(gender: .male)
-                
             case .female:
                 correctPerson = game.removePersonFromList(gender: .female)
-                
             case .random:
                 
                 //check if all names of a list have been used, if so set gender from random to only use remaining list
@@ -248,7 +241,6 @@ class QuizViewController: UIViewController {
                 }
                 
                 personsForRound.append(correctPerson)
-                
             } else {
                 fatalError("correctPerson was still nil after randomization")
             }
@@ -287,7 +279,7 @@ class QuizViewController: UIViewController {
             
             
             //selects random question type and imageView/label for correct answer
-            questionType = Int(arc4random_uniform(2)) == 0 ? .singleImage : .singleName
+            questionType = Bool.random() ? .singleImage : .singleName
             correctAnswer = Int(arc4random_uniform(4)) + 1
             
             if questionType == .singleName {
@@ -381,7 +373,6 @@ class QuizViewController: UIViewController {
         } else if sender.identifier == "unwindFromRetrySetButton" {
             
             if let game = game {
-                
                 switch game.originalGender {
                 case .male:
                     game.remainingPossibleMales = game.malesUsed
