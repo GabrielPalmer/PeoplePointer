@@ -20,7 +20,7 @@ class Person: NSObject, NSCoding {
         
     }
     
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory,    in: .userDomainMask).first!
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let MaleArchiveURL = DocumentsDirectory.appendingPathComponent("males")
     static let FemaleArchiveURL = DocumentsDirectory.appendingPathComponent("females")
     

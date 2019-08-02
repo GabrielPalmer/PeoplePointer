@@ -8,7 +8,12 @@
 
 import UIKit
 
-class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
+class EditPersonViewController:
+    UIViewController,
+    UITextFieldDelegate,
+    UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate,
+    UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
@@ -23,9 +28,11 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
         
         nameTextField.delegate = self
         scrollView.delegate = self
-        
-        updateZoomFor(size: CGSize(width: 200, height: 200))
-        
+
+        let gestureRecogizer = UITapGestureRecognizer(target: self, action: #selector(selectImageFromPhotoLibrary))
+        scrollView.addGestureRecognizer(gestureRecogizer)
+
+        updateZoomFor(size: scrollView.bounds.size)
         scrollView.layer.borderWidth = 2
         scrollView.layer.borderColor = UIColor.gray.cgColor
         scrollView.layer.cornerRadius = 0
@@ -33,8 +40,10 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        imageView.image = person?.image
-        nameTextField.text = person?.name
+        if let person = person {
+            imageView.image = person.image
+            nameTextField.text = person.name
+        }
     }
     
     //========================================
@@ -135,7 +144,7 @@ class EditPersonViewController: UIViewController, UITextFieldDelegate, UIImagePi
     // MARK: - UIImagePickerControllerDelegate
     //========================================
     
-    @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
+    @objc func selectImageFromPhotoLibrary() {
         //hide keyboard
         nameTextField.resignFirstResponder()
         

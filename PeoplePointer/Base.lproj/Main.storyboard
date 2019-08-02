@@ -600,9 +600,6 @@
                                     <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testDefaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="GgX-bG-uCY">
                                         <rect key="frame" x="0.0" y="0.0" width="244" height="244"/>
                                         <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="7c1-89-ZlQ" appends="YES" id="RX3-d2-OV7"/>
-                                        </connections>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -646,11 +643,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zoN-L5-gqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="WpA-m8-uSh" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="7c1-89-ZlQ">
-                    <connections>
-                        <action selector="selectImageFromPhotoLibrary:" destination="BfR-Bt-jO8" id="PRs-yR-Uzu"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3665" y="456"/>
         </scene>
@@ -699,7 +691,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="90" id="oEA-Ud-x8a" customClass="PersonTableViewCell" customModule="PeoplePointer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="personCell" rowHeight="90" id="oEA-Ud-x8a" customClass="PersonTableViewCell" customModule="PeoplePointer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oEA-Ud-x8a" id="lPr-I4-JOZ">
@@ -753,7 +745,7 @@
                     <navigationItem key="navigationItem" title="People" id="Dd5-hf-Hod">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="fs2-tC-tpR">
                             <connections>
-                                <segue destination="UE4-lK-n2L" kind="unwind" unwindAction="unwindToMainViewControllerWithSender:" id="YXO-jX-Fmf"/>
+                                <segue destination="UE4-lK-n2L" kind="unwind" identifier="unwindToMainViewController" unwindAction="unwindToMainViewControllerWithSender:" id="rsE-Jt-3Yv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="A6n-9h-90b">
@@ -767,7 +759,6 @@
                         <outlet property="tableView" destination="mwn-hf-Wac" id="mNz-FW-yNb"/>
                         <segue destination="vRs-h7-Gfe" kind="presentation" identifier="addPerson" id="7V8-5A-4ne"/>
                         <segue destination="BfR-Bt-jO8" kind="show" identifier="editPerson" id="z8H-d7-AJf"/>
-                        <segue destination="UE4-lK-n2L" kind="unwind" identifier="unwindToMainViewController" unwindAction="unwindToMainViewControllerWithSender:" id="IPM-l5-Lbg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6H-LQ-fvW" userLabel="First Responder" sceneMemberID="firstResponder"/>

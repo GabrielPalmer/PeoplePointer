@@ -17,7 +17,13 @@ class PersonListsTableViewController: UIViewController, UITableViewDelegate, UIT
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "Males"
+        navigationItem.title = gender == .male ? "Males" : "Females"
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     //========================================
@@ -128,7 +134,7 @@ class PersonListsTableViewController: UIViewController, UITableViewDelegate, UIT
                 } else {
                     femaleList.insert(person, at: 0)
                 }
-                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                tableView.reloadData()
             }
 
             savePersonList(gender: gender)

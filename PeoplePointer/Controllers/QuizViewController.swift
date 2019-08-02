@@ -47,13 +47,13 @@ class QuizViewController: UIViewController {
     
     //placeholder values are just meant to be non-optional and variables will have their true values set later
     var roundFinished: Bool = false
-    var questionType: QuestionType = .singleImage   //placeholder
+    var questionType : QuestionType = .singleImage //placeholder
     var correctAnswer: Int?
-    var round: Int = 1
-    var maxRounds: Int = 4   //placeholder
+    var round        : Int = 1
+    var maxRounds    : Int = 4                     //placeholder
     var amountCorrect: Float = 0
-    var gender: Gender = .random   //placeholder
-    var game: Game?
+    var gender       : Gender = .random            //placeholder
+    var game         : Game?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,14 +154,13 @@ class QuizViewController: UIViewController {
     }
     
     fileprivate func newGame() {
-        
         nextButton.setTitle("Next", for: .normal)
         roundFinished = false
         round = 1
         amountCorrect = 0
         nextButton.isHidden = true
         
-        //Game object is reused if redoing quiz
+        //Game object is reused if retrying set
         if game == nil {
             game = Game(forList: gender)
         }
@@ -213,7 +212,7 @@ class QuizViewController: UIViewController {
                 }
                 
                 //gets random person from remaining gender list and ensure the other fill persons will be that gender
-                if arc4random_uniform(2) == 0 {
+                if Bool.random() {
                     randomGender = .male
                     correctPerson = game.removePersonFromList(gender: .male)
                 } else {
@@ -248,36 +247,23 @@ class QuizViewController: UIViewController {
             
             //fills in 3 more persons in personsForRound ensuring no duplicates
             for _ in 0...2 {
-                var person: Person?
+                var person: Person!
                 
                 switch gender {
-                    
-                case .male:
+                case .male, .female:
                     repeat {
-                        person = game.getPersonFromList(gender: .male)
-                    } while personsForRound.contains(person!)
-                    
-                case .female:
-                    repeat {
-                        person = game.getPersonFromList(gender: .female)
-                    } while personsForRound.contains(person!)
+                        person = game.getPersonFromList(gender: gender)
+                    } while personsForRound.contains(person)
                     
                 case .random:
-                    if randomGender == .male {
-                        repeat {
-                            person = game.getPersonFromList(gender: .male)
-                        } while personsForRound.contains(person!)
-                    } else if randomGender == .female {
-                        repeat {
-                            person = game.getPersonFromList(gender: .female)
-                        } while personsForRound.contains(person!)
-                    }
+                    repeat {
+                        person = game.getPersonFromList(gender: randomGender)
+                    } while personsForRound.contains(person)
                 }
                 
                 personsForRound.append(person!)
             }
-            
-            
+
             //selects random question type and imageView/label for correct answer
             questionType = Bool.random() ? .singleImage : .singleName
             correctAnswer = Int(arc4random_uniform(4)) + 1
@@ -365,13 +351,12 @@ class QuizViewController: UIViewController {
         if let game = game {
             gender = game.originalGender
         }
-        
-        if sender.identifier == "unwindFromReplayButton" {
+
+        switch sender.identifier {
+        case "unwindFromReplayButton":
             //newGame() will create the correct game settings again, as long as gender is set from originalGender beforehand
             game = nil
-            
-        } else if sender.identifier == "unwindFromRetrySetButton" {
-            
+        case "unwindFromRetrySetButton":
             if let game = game {
                 switch game.originalGender {
                 case .male:
@@ -382,13 +367,11 @@ class QuizViewController: UIViewController {
                     game.remainingPossibleMales = game.malesUsed
                     game.remainingPossibleFemales = game.femalesUsed
                 }
-                
+
                 game.malesUsed.removeAll()
                 game.femalesUsed.removeAll()
-                
             }
-            
-        } else {
+        default:
             fatalError("unwinded to QuizViewController from unkown source")
         }
         

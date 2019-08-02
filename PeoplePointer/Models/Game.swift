@@ -49,28 +49,26 @@ class Game {
     //function for getting the correct person
     func removePersonFromList(gender: Gender) -> Person {
         if gender == .random {
-            print("warning: .random gender was passed to removePersonFromList()")
-            return Person(image: UIImage(named: "randomPlaceholder")!, name: "Default Person")
+            fatalError(".random gender was passed to removePersonFromList()")
         }
         
         if gender == .male {
-            return remainingPossibleMales.remove(at: Int(arc4random_uniform(UInt32(remainingPossibleMales.count))))
+            return remainingPossibleMales.remove(at: Int.random(in: 0..<remainingPossibleMales.count))
         } else {
-            return remainingPossibleFemales.remove(at: Int(arc4random_uniform(UInt32(remainingPossibleFemales.count))))
+            return remainingPossibleFemales.remove(at: Int.random(in: 0..<remainingPossibleFemales.count))
         }
     }
     
     //fuction for filling in wrong answers
     func getPersonFromList(gender: Gender) -> Person {
         if gender == .random {
-            print("warning: .random gender was passed to getPersonFromList()")
-            return Person(image: UIImage(named: "randomPlaceholder")!, name: "Default Person")
+            fatalError(".random gender was passed to getPersonFromList()")
         }
         
         if gender == .male {
-            return allPossibleMales[Int(arc4random_uniform(UInt32(allPossibleMales.count)))]
+            return allPossibleMales[Int.random(in: 0..<allPossibleMales.count)]
         } else {
-            return allPossibleFemales[Int(arc4random_uniform(UInt32(allPossibleFemales.count)))]
+            return allPossibleFemales[Int.random(in: 0..<allPossibleFemales.count)]
         }
     }
 }
