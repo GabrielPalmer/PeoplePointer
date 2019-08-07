@@ -185,154 +185,151 @@ class QuizViewController: UIViewController {
             nameButton3.tintColor = .black
             nameButton4.tintColor = .black
         }
-        
-        
-        if let game = game {
-            var correctPerson: Person?
-            var personsForRound: [Person] = []
-            var randomGender: Gender = .random   //when gender = .random, this must be set to male/female or app will crash
-            
-            //gets answer person for round, which is always the first index of personsForRound
+
+        guard let game = game else { fatalError("game did not exist on newRound()") }
+
+        var correctPerson: Person?
+        var personsForRound: [Person] = []
+        var randomGender: Gender = .random   //when gender = .random, this must be set to male/female or app will crash
+
+        //gets answer person for round, which is always the first index of personsForRound
+        switch gender {
+        case .male:
+            correctPerson = game.removePersonFromList(gender: .male)
+        case .female:
+            correctPerson = game.removePersonFromList(gender: .female)
+        case .random:
+
+            //check if all names of a list have been used, if so set gender from random to only use remaining list
+            if game.remainingPossibleMales.count == 0 {
+                gender = .female
+                correctPerson = game.removePersonFromList(gender: .female)
+                break
+            } else if game.remainingPossibleFemales.count == 0 {
+                gender = .male
+                correctPerson = game.removePersonFromList(gender: .male)
+                break
+            }
+
+            //gets random person from remaining gender list and ensure the other fill persons will be that gender
+            if Bool.random() {
+                randomGender = .male
+                correctPerson = game.removePersonFromList(gender: .male)
+            } else {
+                randomGender = .female
+                correctPerson = game.removePersonFromList(gender: .female)
+            }
+        }
+
+        if let correctPerson = correctPerson {
+
             switch gender {
             case .male:
-                correctPerson = game.removePersonFromList(gender: .male)
+                game.malesUsed.append(correctPerson)
             case .female:
-                correctPerson = game.removePersonFromList(gender: .female)
+                game.femalesUsed.append(correctPerson)
             case .random:
-                
-                //check if all names of a list have been used, if so set gender from random to only use remaining list
-                if game.remainingPossibleMales.count == 0 {
-                    gender = .female
-                    correctPerson = game.removePersonFromList(gender: .female)
-                    break
-                } else if game.remainingPossibleFemales.count == 0 {
-                    gender = .male
-                    correctPerson = game.removePersonFromList(gender: .male)
-                    break
-                }
-                
-                //gets random person from remaining gender list and ensure the other fill persons will be that gender
-                if Bool.random() {
-                    randomGender = .male
-                    correctPerson = game.removePersonFromList(gender: .male)
-                } else {
-                    randomGender = .female
-                    correctPerson = game.removePersonFromList(gender: .female)
-                }
-            }
-            
-            if let correctPerson = correctPerson {
-                
-                switch gender {
+                switch randomGender {
                 case .male:
                     game.malesUsed.append(correctPerson)
                 case .female:
                     game.femalesUsed.append(correctPerson)
                 case .random:
-                    switch randomGender {
-                    case .male:
-                        game.malesUsed.append(correctPerson)
-                    case .female:
-                        game.femalesUsed.append(correctPerson)
-                    case .random:
-                        fatalError("randomGender was still .random after randomization")
-                    }
+                    fatalError("randomGender was still .random after randomization")
                 }
-                
-                personsForRound.append(correctPerson)
-            } else {
-                fatalError("correctPerson was still nil after randomization")
-            }
-            
-            
-            //fills in 3 more persons in personsForRound ensuring no duplicates
-            for _ in 0...2 {
-                var person: Person!
-                
-                switch gender {
-                case .male, .female:
-                    repeat {
-                        person = game.getPersonFromList(gender: gender)
-                    } while personsForRound.contains(person)
-                    
-                case .random:
-                    repeat {
-                        person = game.getPersonFromList(gender: randomGender)
-                    } while personsForRound.contains(person)
-                }
-                
-                personsForRound.append(person!)
             }
 
-            //selects random question type and imageView/label for correct answer
-            questionType = Bool.random() ? .singleImage : .singleName
-            correctAnswer = Int(arc4random_uniform(4)) + 1
-            
-            if questionType == .singleName {
-                
-                singleNameView.isHidden = false
-                singleImageView.isHidden = true
-                nameLabel.text = personsForRound.first?.name
-                
-                switch correctAnswer {
-                case 1:
-                    imageView1.image = personsForRound.first?.image
-                    imageView2.image = personsForRound[1].image
-                    imageView3.image = personsForRound[2].image
-                    imageView4.image = personsForRound[3].image
-                case 2:
-                    imageView1.image = personsForRound[1].image
-                    imageView2.image = personsForRound.first?.image
-                    imageView3.image = personsForRound[2].image
-                    imageView4.image = personsForRound[3].image
-                case 3:
-                    imageView1.image = personsForRound[1].image
-                    imageView2.image = personsForRound[2].image
-                    imageView3.image = personsForRound.first?.image
-                    imageView4.image = personsForRound[3].image
-                case 4:
-                    imageView1.image = personsForRound[1].image
-                    imageView2.image = personsForRound[2].image
-                    imageView3.image = personsForRound[3].image
-                    imageView4.image = personsForRound.first?.image
-                default:
-                    fatalError("Invalid correctAnswer randomized")
-                }
-                
-            } else {
-                
-                singleNameView.isHidden = true
-                singleImageView.isHidden = false
-                imageView.image = personsForRound.first?.image
-                
-                switch correctAnswer {
-                case 1:
-                    nameButton1.setTitle(personsForRound.first?.name, for: .normal)
-                    nameButton2.setTitle(personsForRound[1].name, for: .normal)
-                    nameButton3.setTitle(personsForRound[2].name, for: .normal)
-                    nameButton4.setTitle(personsForRound[3].name, for: .normal)
-                case 2:
-                    nameButton1.setTitle(personsForRound[1].name, for: .normal)
-                    nameButton2.setTitle(personsForRound.first?.name, for: .normal)
-                    nameButton3.setTitle(personsForRound[2].name, for: .normal)
-                    nameButton4.setTitle(personsForRound[3].name, for: .normal)
-                case 3:
-                    nameButton1.setTitle(personsForRound[1].name, for: .normal)
-                    nameButton2.setTitle(personsForRound[2].name, for: .normal)
-                    nameButton3.setTitle(personsForRound.first?.name, for: .normal)
-                    nameButton4.setTitle(personsForRound[3].name, for: .normal)
-                case 4:
-                    nameButton1.setTitle(personsForRound[1].name, for: .normal)
-                    nameButton2.setTitle(personsForRound[2].name, for: .normal)
-                    nameButton3.setTitle(personsForRound[3].name, for: .normal)
-                    nameButton4.setTitle(personsForRound.first?.name, for: .normal)
-                default:
-                    fatalError("Invalid correctAnswer randomized")
-                }
-            }
-            
+            personsForRound.append(correctPerson)
+        } else {
+            fatalError("correctPerson was still nil after randomization")
         }
-        
+
+
+        //fills in 3 more persons in personsForRound ensuring no duplicates
+        for _ in 0...2 {
+            var person: Person!
+
+            switch gender {
+            case .male, .female:
+                repeat {
+                    person = game.getPersonFromList(gender: gender)
+                } while personsForRound.contains(person)
+
+            case .random:
+                repeat {
+                    person = game.getPersonFromList(gender: randomGender)
+                } while personsForRound.contains(person)
+            }
+
+            personsForRound.append(person!)
+        }
+
+        //selects random question type and imageView/label for correct answer
+        questionType = Bool.random() ? .singleImage : .singleName
+        correctAnswer = Int(arc4random_uniform(4)) + 1
+
+        if questionType == .singleName {
+
+            singleNameView.isHidden = false
+            singleImageView.isHidden = true
+            nameLabel.text = personsForRound.first?.name
+
+            switch correctAnswer {
+            case 1:
+                imageView1.image = personsForRound.first?.image
+                imageView2.image = personsForRound[1].image
+                imageView3.image = personsForRound[2].image
+                imageView4.image = personsForRound[3].image
+            case 2:
+                imageView1.image = personsForRound[1].image
+                imageView2.image = personsForRound.first?.image
+                imageView3.image = personsForRound[2].image
+                imageView4.image = personsForRound[3].image
+            case 3:
+                imageView1.image = personsForRound[1].image
+                imageView2.image = personsForRound[2].image
+                imageView3.image = personsForRound.first?.image
+                imageView4.image = personsForRound[3].image
+            case 4:
+                imageView1.image = personsForRound[1].image
+                imageView2.image = personsForRound[2].image
+                imageView3.image = personsForRound[3].image
+                imageView4.image = personsForRound.first?.image
+            default:
+                fatalError("Invalid correctAnswer randomized")
+            }
+
+        } else {
+
+            singleNameView.isHidden = true
+            singleImageView.isHidden = false
+            imageView.image = personsForRound.first?.image
+
+            switch correctAnswer {
+            case 1:
+                nameButton1.setTitle(personsForRound.first?.name, for: .normal)
+                nameButton2.setTitle(personsForRound[1].name, for: .normal)
+                nameButton3.setTitle(personsForRound[2].name, for: .normal)
+                nameButton4.setTitle(personsForRound[3].name, for: .normal)
+            case 2:
+                nameButton1.setTitle(personsForRound[1].name, for: .normal)
+                nameButton2.setTitle(personsForRound.first?.name, for: .normal)
+                nameButton3.setTitle(personsForRound[2].name, for: .normal)
+                nameButton4.setTitle(personsForRound[3].name, for: .normal)
+            case 3:
+                nameButton1.setTitle(personsForRound[1].name, for: .normal)
+                nameButton2.setTitle(personsForRound[2].name, for: .normal)
+                nameButton3.setTitle(personsForRound.first?.name, for: .normal)
+                nameButton4.setTitle(personsForRound[3].name, for: .normal)
+            case 4:
+                nameButton1.setTitle(personsForRound[1].name, for: .normal)
+                nameButton2.setTitle(personsForRound[2].name, for: .normal)
+                nameButton3.setTitle(personsForRound[3].name, for: .normal)
+                nameButton4.setTitle(personsForRound.first?.name, for: .normal)
+            default:
+                fatalError("Invalid correctAnswer randomized")
+            }
+        }
     }
     
     //========================================

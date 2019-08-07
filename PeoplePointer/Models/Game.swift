@@ -12,6 +12,7 @@ import UIKit
 class Game {
     var remainingPossibleMales: [Person]
     var remainingPossibleFemales: [Person]
+    
     let allPossibleMales: [Person]
     let allPossibleFemales: [Person]
     
